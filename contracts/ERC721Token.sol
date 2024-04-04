@@ -77,6 +77,9 @@ contract ERC721Token is ERC721Enumerable, Ownable {
 	function signedMint(bytes memory signature) public {
 		require(!usedSignatures[signature], "Signature already used");
 		require(verifyAddressSigner(signature), "SIGNATURE_VALIDATION_FAILED");
+		require(totalSupply() + 1 <= MAX_SUPPLY,
+			"Exceeds max supply"
+		);
 
 		usedSignatures[signature] = true;
 		_mint(msg.sender, totalSupply() + 1);
