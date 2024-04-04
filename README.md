@@ -6,14 +6,14 @@
 ├── contracts
 │   └── ERC721Token.sol
 ├── deploy
-│   └── Deploy_BasicERC721.ts
+│   └── Deploy_ERC721Token.ts
 ├── deployments
 ├── hardhat.config.ts
 ├── tasks
 │   ├── erc721
 │   └── utils
 └── test
-    └── BasicERC721.ts
+    └── ERC721Token.ts
 ```
 
 ## Usage
