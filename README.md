@@ -9,7 +9,7 @@
 ### Core Functions
 
 - **`mint`**: This function allows users to mint up to three NFTs per transaction an unlimited number of times. Alternatively, users can mint a set of six NFTs in a single transaction.
-- **`signedMint`**: Designed for backend signature minting, this function permits the minting of one NFT per transaction, typically reserved for pre-mint by an allowlist.
+- **`signedMint`**: Designed for backend signature minting, this function permits the minting of one NFT, typically reserved for pre-mint by an allowlist.
 - **`verifyAddressSigner`**: A utility function that verifies the signer of a signature for `signedMint`, ensuring the authenticity of minting requests.
 - **`withdraw`**: Enables the contract owner to withdraw funds accumulated from the sale of NFTs, transferring the balance to their personal account.
 
