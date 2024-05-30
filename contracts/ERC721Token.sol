@@ -32,7 +32,7 @@ contract ERC721Token is ERC721Enumerable, Ownable {
 	event SetMinted(uint256 startIndex, address minter);
 
 	// Constructor for the contract. Sets the token name and symbol and transfers ownership to the contract deployer.
-	constructor() ERC721("ERC721Token", "TKN") Ownable(msg.sender) {}
+	constructor(string memory name, string memory symbol) ERC721(name, symbol) Ownable(msg.sender) {}
 
 	// Function to mint tokens. Can mint a specific number of tokens or a set.
 	// Checks for max supply, whether a set can be minted, and correct payment.
