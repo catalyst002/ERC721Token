@@ -37,41 +37,40 @@ contract ERC721Token is ERC721Enumerable, Ownable {
 	// Function to mint tokens. Can mint a specific number of tokens or a set.
 	// Checks for max supply, whether a set can be minted, and correct payment.
 	function mint(uint256 numberOfTokens, bool mintSet) public payable {
-		require(
-			totalSupply() + numberOfTokens <= MAX_SUPPLY,
-			"Exceeds max supply"
-		);
+    		uint256 currentSupply = totalSupply();
+    		require(
+		        currentSupply + numberOfTokens <= MAX_SUPPLY,
+		        "Exceeds max supply"
+		    );
 
-		if (mintSet && (numberOfTokens == 6)) {
-			require(
-				!hasMintedSet[msg.sender],
-				"Address has already minted a set"
-			);
-			require(SET_PRICE <= msg.value, "Ether value sent is not correct");
-			uint256 startIndex = totalSupply() + 1;
-			for (uint256 i = 0; i < numberOfTokens; i++) {
-				_mint(msg.sender, startIndex + i);
-			}
+	    if (mintSet) {
+	        require(numberOfTokens == 6, "Set must consist of 6 tokens");
+	        require(
+	            !hasMintedSet[msg.sender],
+	            "Address has already minted a set"
+	        );
+	        require(SET_PRICE <= msg.value, "Ether value sent is not correct");
+	        hasMintedSet[msg.sender] = true;
+	    } else {
+	        require(
+	            numberOfTokens <= MAX_MINT_PER_TX,
+	            "Exceeds max mint amount per transaction"
+	        );
+	        require(
+	            TOKEN_PRICE * numberOfTokens <= msg.value,
+	            "Ether value sent is not correct"
+	        );
+	    }
 
-			hasMintedSet[msg.sender] = true;
-			emit SetMinted(startIndex, msg.sender);
-		} else {
-			require(
-				numberOfTokens <= MAX_MINT_PER_TX,
-				"Exceeds max mint amount per transaction"
-			);
-			require(
-				TOKEN_PRICE * numberOfTokens <= msg.value,
-				"Ether value sent is not correct"
-			);
-
-			uint256 startIndex = totalSupply() + 1;
-			for (uint256 i = 0; i < numberOfTokens; i++) {
-				_mint(msg.sender, startIndex + i);
-			}
-		}
+	    uint256 startIndex = currentSupply + 1;
+	    for (uint256 i = 0; i < numberOfTokens; i++) {
+	        _mint(msg.sender, startIndex + i);
+	    }
+	
+	    if (mintSet) {
+	        emit SetMinted(startIndex, msg.sender);
+	    }
 	}
-
 	// Function to mint a token using a signature for authorization.
 	// Verifies the signature against a predefined signer address.
 	function signedMint(bytes memory signature) public {
