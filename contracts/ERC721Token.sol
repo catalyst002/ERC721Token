@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
-/ Importing necessary components from OpenZeppelin's contracts library
+// Importing necessary components from OpenZeppelin's contracts library
 // ERC721Enumerable adds enumeration functionality on top of the basic ERC721 standard.
 // Ownable provides basic authorization control functions.
 // ECDSA and MessageHashUtils are used for cryptographic operations, particularly for signature verification.
