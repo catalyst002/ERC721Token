@@ -23,7 +23,7 @@ contract ERC721Token is ERC721Enumerable, Ownable {
 
 	// Mappings to keep track of unique actions or states
 	mapping(address => bool) public hasMintedSet; // Tracks whether an address has minted a set
-	mapping(bytes => bool) private usedSignatures; // Tracks whether a signature has been used
+	mapping(bytes => bool) public usedSignatures; // Tracks whether a signature has been used
 
 	// Address of the signer, used for signature verification in signedMint
 	address private signerAddress = 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266;
